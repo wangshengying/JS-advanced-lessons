@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num1=314.56;
+        var num2=num1.toFixed(1);
+        console.log(num2);
+        console.log(typeof(num2));
+        //就是对小数点后面的四舍五入，或者根据数字进行补零
+        var num2=20;
+        var numobject=new Number(num2);
+        console.log(numobject);
+        numobject.toFixed(1);
+        var str3="adddmmm";
+        console.log(str3.split("",1));//split中数字代表数组长度
+        console.log(str3.split());
+        var nu=123.798;
+        console.log(nu.toPrecision(1));
+        console.log(nu.toPrecision(2));
+        console.log(nu.toPrecision(3));
+        console.log(nu.toPrecision(4));
+        console.log(nu.toPrecision(5));
+        var num=123.90;
+        console.log(typeof(num.toString()));
+        var str1="abcdef";
+        console.log(str1.charAt(10));
+        console.log(String.fromCharCode(95,96,97,98));
+        console.log(str1.charCodeAt(0));
+        //如果是俩正数，不算后面的，从下一个到后面
+        //如果是俩负数，不算后面的，从下一个到前面的数为止
+        //如果是一个正数，一个负数，从正数向右直接数到俩位置中间的所有字符，不算负数位置的，从正数的开始
+        console.log(str1.slice(0,-1));
+        console.log(str1.slice(-2,-1));
+        console.log(str1.slice(1,-1));
+        console.log(str1.slice(0,3));
+        var str2="*123ndd";
+        console.log(str2.substr(0,3));
+        var str3="09834mm";
+        //只能是正数，并且不能超过length
+        console.log(str3.substring(1,6));
+    </script>
+</body>
+</html>
