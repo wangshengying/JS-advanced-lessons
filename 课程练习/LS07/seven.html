@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 函数有三种定义方式 -->
+    <script>
+        //像这种传统的函数即使在函数定义之前调用也无妨，因为JavaScript解释器把函数声明提前了
+        function max(a,b){
+            return a>b?a:b;
+        }
+        max(2,3);
+        //这种函数不可以先调用，再定义，因为JavaScript解释器只是把var min提升上去了
+        var min=function(x,y){
+            return x<y?x:y;
+        }
+        //大写的Functon表示它是JavaScript内置的函数
+        //括号里面是参数和函数体，并且都放在""里面，执行效率低一些，因为有newFunction的过程。
+        var fn1=new Function("a","b","return a>b?a:b;")
+        console.log(fn1(2,3));
+        //如果是严格模式，那么就只能是undefined的结果了
+        function use(){
+            console.log(this);
+        }
+        use();
+        //在对象的内部，this指向调用该方法的对象
+        var obj={
+            x:0,
+            text:function(){
+                console.log(this);
+            }
+        }
+        obj.text();
+        //移花接木
+        var objA={objName:"AAA"};
+        var objB={objName:"BBB"};
+        objA.test=function(){
+            console.log(this.objName);
+        }
+        objA.test();
+        //call()将对象A的方法test切换成B对象的调用，即相当于objB.test();
+        objA.test.call(objB);
+
+        function Person(username){
+            this.username=username;
+            // this.sayHi=function(){
+            //     console.log(this.username);
+            // }
+        }
+        Person.sayHi=function(){
+            console.log(this.username);
+        }
+        var person=new Person("zhangsan");
+        var person1=new Person("lisi");
+        //实参数量小于形参
+        function sum(x,y,z){
+            //如果要设置初始值：z||3
+            return x+y+z;
+        }
+        console.log(sum(1,2));
+        //形参小于实参时，可以通过argument获取所有参数
+        function tes(){
+            var s="";
+            for(var i=0;i<arguments.length;i++){
+                s+=arguments[i];
+            }
+            return s;
+        }
+        console.log(tes(1,2,3));
+        var a=1;
+        function foo(x){//这里相当于是var x=a;
+            x=2;
+            console.log(a,x);
+        }
+        foo(1);
+        
+        var obj={x:0};
+        function bar(obj1){//这里相当于var obj1=obj;就是这两者是指向堆区同一个地址
+            obj1.x=2;
+            console.log(obj,obj1);
+        }
+        bar(obj);
+        //a instanceof string、number、boolean、Array
+        function change(a){
+            switch(a){
+                case typeof(a)=="number":
+                    var b=a;
+                    console.log(b);
+                    break;
+                case typeof(a)=="string":
+                    var c=a;
+                    console.log(c);
+                    break;
+                case typeof(a)=="boolean":
+                    var d=a;
+                    console.log(d);
+                    break;
+                default:
+                    var m=a.length;
+                    var brr=new Array(m);//或者，brr=[];
+                    for(var i=0;i<a.length;i++){
+                        brr[i]=a[i];
+                        console.log(brr[i]);
+                    }
+            }
+        }
+    </script>
+</body>
+</html>
