@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //&&运算如果左真，取右操作数的值，如果左假，取左操作数的值
+        console.log(10&&0);
+        console.log(undefined&&10);
+        //&&和||取值相反
+        console.log(10||null);
+        console.log({}&&4);//{}空对象是true
+        //利用逻辑语句输出以前用switch case语句或者if语句才能输出的评判结果。
+        var score=30;
+        console.log((score>90&&"优")||(score>80&&"良")||(score>60&&"可"));
+        switch(true){
+            case score>90:
+                console,log("优秀");
+                break;
+            case score>80:
+                console.log("可以");
+                break;
+            case score>60:
+                console.log("良");
+                break;
+            default:
+                console.log("哼唧");
+                break;
+        }
+        //JavaScript允许调用的实参和形参是不一样的。
+        function sum(x,y,z){
+            x=x||1; //因为不是严格模式才可以这样用，相当于var x
+            y=y||2;
+            z=z||3;
+            return x+y+z;
+        }
+        console.log(sum());
+        console.log(sum(false,false,false));
+        var sun=function (a,b=4,c=5){
+            return a+b+c
+        }
+        console.log(sun);
+    </script>
+</body>
+</html>
