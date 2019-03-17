@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        'use strct' //这是对全局即所有代码用了严格模式
+        // 表达式与语句
+        // ES5 是ECMAscript Javascript是完全属于ECMAscript实现的脚本语言
+        // ES5是ECMAscript5的简写
+        // 当前主流版本：ES5 ES6
+        // 以下代码表示，JavaScript在ES5的标准下没有块级作用域，非严格模式下用var相当于全局变量
+        if(false){
+            var username="zhangsan";
+        }
+        if(true){
+            var username2="lisi";
+        }
+        console.log(username);
+        console.log(username2);
+        //非严格的状态下不使用var来声明变量，该变量会自动转化为全局变量,
+        //即相当于在最上面var username
+        //所以，JavaScript比较大的缺陷是：全局变量
+        // function fn1(){
+        //     //'use strict' //对函数范围内用了严格模式
+        //     username="username";//这种没有用var的相当于是无'use strict'下的局部变量
+        // }
+        // fn1();
+        // console.log(username);
+    //     //this的指向
+        function thisText(){
+            // 'use strict'
+            console.log(this);//普通函数里面，this指向全局对象,如果是严格模式下，this指向undefined
+        }//可以通过判断普通函数里，this的指向，来判断此时是不是严格模式下
+        thisText();
+        //如下也可以判断是不是在严格模式
+        function judge(){
+            'use strict'
+            var result=(this===undefined?true:false);
+            return result;
+        }
+        if(judge()){
+            console.log("严格模式");
+        }
+        else{
+            console.log("非严格模式");
+        }
+        'use strict'
+        var str7="abcdef";
+        str7.length=1;
+        console.log(str7.length);//6
+        
+        var index=5;
+        switch(index){//case条件中的值和类型也需要一样，如果没有break，将会将以后遇到的全部执行
+            case '1':
+                console.log("星期一");
+                break;
+            case 2:
+                console.log("星期二");
+                break;
+            case 3:
+                console.log("星期三");
+                break;
+            default:
+                alert("没有该选项");
+                break;
+        }
+        var obj={ username:"lisi",age:20 };
+        obj._proto_.sex="male";
+        for(i in obj){
+            console.log(obj[i]);
+        }
+        var arr1=[1,2,3];
+        for(var j in arr1){
+            console.log(j);
+        }
+        </script>
+</body>
+</html>
