@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>IIFE 解决变量共享问题的实例</title>
+            <style type="text/css">                    
+            .container{
+                width: 400px;
+                height: 300px;
+                margin: 0 auto;
+                border: 3px solid red;
+            }
+            .tabs>span{
+                float: left;
+                width: 100px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+            }
+            .contents{
+                clear: both;
+            }
+            .contents>div{
+                height: 250px;
+                line-height: 250px;
+                font-size: 50px;
+                text-align: center;
+                display: none;
+            }
+            .contents>.show{
+                display: block;
+            }
+            .active{
+                background-color: #cdcdcd;
+            }
+        </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="tabs">
+                    <span class="active">导航0</span>
+                    <span>导航1</span>
+                    <span>导航2</span>
+                    <span>导航3</span>
+                </div>
+                <div class="contents">
+                    <div class="show">导航0内容</div>
+                </div>                
+        </div>
+    </head>
+    <script>
+        var spanList=document.getElementsByTagName("span");
+        var show=document.getElementsByClassName("show")[0];
+        //这种写法相当于：第一次循环
+        //var i;
+        //i=0;
+        //show.innerHTML="导航"+i+"内容";
+        //走完循环后i的值变成了4，所以不管循环到第几次，i的值都是4
+        // for(var i=0;i<spanList.length;i++){
+        //     spanList[i].onclick=function(){
+        //         show.innerHTML="导航"+i+"内容";
+        //     }
+        // }
+        //要想改变上面的这种情况，需要设置一个立即执行函数，然后传入参数i
+        (function (w,d){
+            var spanList=d.getElementsByTagName("span");
+            var show=d.getElementsByClassName("show")[0];
+            for(var i=0;i<spanList.length;i++){
+                (function(j){
+                    spanList[j].onclick=function(){
+                        show.innerHTML="导航"+j+"内容";
+                    }
+                })(i)
+            }
+        })(window,document)
+        //例如，以下形式
+        function fn1(){
+            var arr1=[];
+            for(var i=0;i<10;i++){
+                arr1[i]=function(){
+                    return i;
+                }
+            }
+        }
+        //相当于是
+        //var i;
+        //arr[0]=function(){
+        //return i;
+            //可以改成立即执行函数的形式
+        function fn1(){
+            var arr1=[];
+            for(var i=0;i<10;i++){
+                (function(j){
+                    arr1[j]=function(){
+                        return j;
+                    }
+                })(i)
+            }
+            return arr1;
+        }
+        var result=fn1();
+        console.log(result[1]());
+        //
+        for(var k=0;k<3;k++){
+            (function(j){
+                setTimeout(function(){
+                    console.log(new Date,j);
+                },j*1000)
+            })(k)
+        }
+    </script>
+</body>
+</html>
