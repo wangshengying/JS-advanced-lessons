@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //闭包就是可以访问到函数内部定义的局部变量
+        //通过在函数(fn1)内部定义函数(fn2)来访问到fn1里面的局部变量
+        function fn1(){
+            var x=1;
+            function fn2(){
+                console.log(++x);
+            }
+            return fn2;
+        }
+        var result=fn1();//result是fn2()这个函数
+        result();
+        //形成闭包的条件：外层定义函数、内层定义函数(匿名函数等)、内层函数与外层函数作用域相关联的变量
+        function addNumber(start){
+            return function(step){
+                start+=step;
+                return start;
+            }
+        }
+        var result=addNumber(10);
+        console.log(result(1));
+        console.log(result(1));//内层函数和与外层函数相关量的变量没有释放掉，一直保存在内存中
+        //由此可的闭包的作用：(1)可以访问到函数的局部变量  
+        //(2)可以让相关联的变量保持在内存中保存在内存中不释放
+    </script>
+</body>
+</html>
