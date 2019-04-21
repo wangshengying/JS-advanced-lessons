@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var obj={x:1};
+        // console.log(obj.__proto__==Object.prototype);//obj的原型和构造函数的原型链是相同的
+        // console.log(obj.__proto__.__proto__);
+        // var obj1={x:1};
+        // var obj2=Object.create(obj);//相当于手动给obj2添加了proto
+        // Object.prototype.sayHello=function(){
+        //     console.log("你好！");
+        // }
+        // console.log(obj2.__proto__);//obj1
+        // console.log(obj2.__proto__.__proto__);//Object.prototype
+        // console.log(Object.prototype);
+        // console.log(obj2.__proto__.__proto__.__proto__);
+        // var proObj = {
+        //     z:3
+        // };
+        // //判断对象的属性是不是继承来的，使用hasownproperty
+        // var obj = Object.create(proObj);
+        // obj.x = 1;
+        // obj.y = 2;
+        // console.log(obj.x); //1
+        // console.log(obj.y); //2
+        // console.log(obj.z); //3
+        // "z" in obj;
+        // console.log(obj.hasOwnProperty("z"));//如果是继承来的属性，hasownproperty就是false
+        // var str="abcdef";
+        // str.indexOf("abc");
+        // console.log(str.__proto__==String.prototype);
+        // var num=10;
+        // num.toString();
+        // console.log(num.__proto__);
+        // //
+        // function Person(username,age){
+        //     this.username=username;
+        //     this.age=age;
+        //     this.hello=function(){
+        //         console.log("hello world");
+        //     }
+        // }
+        // var person1=new Person("zhangsan",20);
+        // var person2=new Person("lili",21);
+        // console.log(person1.__proto__==Person.prototype);//构造函数的prototype属性和对象的.__proto__属性是相同的
+        // console.log(person1,person2);
+        // person1.sayHello();
+        // person2.sayHello();
+        //
+        function Person2(username,name){
+            this.username=username;
+            this.name=name;
+        }
+        Person2.prototype.sayHello=function(){
+            console.log("hello world");
+        }
+        var person3=new Person2("xiaoming",20);
+        console.log(person3.__proto__==Person2.prototype);
+        console.log(person3.__proto__.__proto__==Object.prototype);
+        console.log(Person2.prototype.constructor==Person2);
+        console.log(Object.prototype.constructor==Object);
+        /*  定义一个car对象，height，width，weight
+            再定义一个smallcar对象，自身具有color、seatNum属性 
+            让smallCar继承car所有属性，使用create方法和构造函数实现
+        */
+        //create方法
+        // var car={
+        //     height:150,
+        //     width:200,
+        //     weight:2000
+        // }
+        // var smallcar=Object.create(car);
+        // smallcar.color="red";
+        // smallcar.seatNum=100;
+        // console.log(smallcar);
+        //构造函数方法
+        var car={
+            height:150,
+            width:200,
+            weight:2000
+        }
+        function createsmallcar(){
+            this.color="red";
+            this.seatNum=100;
+        }
+        createsmallcar.prototype=car;
+        var smallcar=new createsmallcar();
+        console.log(smallcar);
+        console.log(smallcar.__proto__==createsmallcar.prototype);
+    </script>
+</body>
+</html>
