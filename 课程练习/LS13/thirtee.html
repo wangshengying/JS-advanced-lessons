@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //所有对象都具有这个属性,两个对象都具有 对象._proto_==构造函数.prototype
+        console.log(Object instanceof Function);//object是一个构造函数，可以new Object
+        console.log(Object instanceof Object);//前一个是否在后一个的构造函数中
+        console.log(Number instanceof Function);
+        console.log(Function instanceof Object);
+        //注意Math是一个对象，不属于构造函数Function
+        console.log(Object._proto_==Function.prototype);
+        function Person(username,age){
+            this.username=username;
+            this.age=age;
+        }
+        var p=new Person("zhangsan",20);
+        console.log(p._proto_==Person.prototype);
+        // var o={
+        //     _x:1,
+        //     get x(){
+        //         return this._x;
+        //     },
+        //     set x(val){
+        //         if(0<x && x<150){
+        //             this._x=val;
+        //         }
+        //         else{
+        //             console.log("该年龄不符合规定！");
+        //         }
+        //     }
+        // };
+        // console.log(o.x);
+        // o.x=2;
+        // console.log(o.x,o._x);
+        // var o={
+        //     username:"zhangsan",
+        //     age:20
+        // }
+        // console.log(o.username);
+        // console.log(o[username]);
+        // var newPro="sex";
+        // o.newPro="male";
+        // console.log(o.sex);
+        //这个方法还是有用的
+        var obj={
+            num:10,
+            str:"hello",
+            show:function(){
+                console.log(this.str);
+            }
+        }
+        var subObject=Object.create(obj);//将obj作为subObject的_proto_上
+        console.log(subObject);
+        console.log(subObject.num);
+        //
+        function Person(age,name){
+            this.name=name;
+            this.age=age;
+        }
+        Person.prototype.sayHi=function(){//这个函数既可以在对象内部，又可以在构造函数的prototype上
+        //因为对象的proto属性相当于构造函数的prototype属性。
+        //因此，per1和per2可以共用同一个sayHi方法了。
+            console.log("im"+this.name);
+        }
+        var per1=new Person("zhangsan",20);
+        var per2=new Person("lisi",20);
+        per1.sayHi();
+        per2.sayHi();
+        //
+        var obj={
+            x:1
+        };
+        var z="age";
+        obj[z]=20;
+        //不可以写成obj.z=20;因为这样是仅仅将.后面的字符串作为变量名，就只是相当于为obj添了一个属性名
+        console.log(obj);
+        for(i in obj){
+            console.log(obj[i]);
+        }
+        //删除对象的属性
+        delete obj.x;
+        console.log(obj);
+    </script>
+</body>
+</html>
