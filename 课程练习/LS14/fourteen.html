@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var objProto={
+        //     z:3
+        // }
+        // var obj=Object.create(objProto);
+        // obj.x=1;
+        // obj.y=2;
+        // console.log(obj.x);
+        // console.log(obj.y);
+        // console.log(obj.z);
+        // console.log(obj.toString);
+        // for(var i in obj){
+        //     console.log(i,obj[i]);
+        // }
+        // //为对象增加属性definePropery第一个参数是要添加元素的对象，第二个元素是属性名，
+        // //第三个是一个对象类型，就是属性值，可不可以遍历得到
+        // var h;
+        // Object.defineProperty(obj,h,{
+        //     value:"2",//属性值是2
+        //     enumerable:false
+        // });
+        // for(var i in obj){//因为设置了enumerable属性是false，所以遍历不出来h
+        //     console.log(i,obj[i]);
+        // }
+        //
+        // var person1={
+        //     "username":"jack",
+        // };
+        // Object.defineProperty(person1,"username",{
+        //     enumerable:true,
+        //     configrable:true,//是否可配置，即能否通过delete删除该属性
+        //     writable:true,//属性是否可改写,说的是这次的属性即xiaowang是否可改
+        //     value:"xiaowang"
+        // });
+        // person1.username="hhh";
+        // delete person1.username;
+        // for(var i in person1){
+        //     console.log(person1[i]);
+        // }
+        //这里的意思是直接添加的属性如果没有设置writable、enumerable、configrable
+        //默认的属性都是true，如果是通过defineproperty添加的属性，默认的都是false
+        // var obj1={
+        //     x:1,
+        //     y:2
+        // }
+        // obj1.z=3;
+        // for(var i in obj1){
+        //     console.log(i,obj[i]);
+        // }
+        // obj1.z=4;
+        // delete obj1.z;
+        //如果是_name这种先加下划线的命名方式，就意味着我们是希望能通过访问器属性访问它的
+        //访问器属性的意思就是不直接访问，用中间变量来访问它，相对更安全
+        var obj2={"_name":"lili"};
+        Object.defineProperty(obj2,"name",{
+            configurable:true,
+            enumerable:true,
+            get(){
+                return this._name;
+            },
+            set(val){
+                this._name=val;
+            }
+        })
+        console.log(obj2._name);
+        var obj3={x:5}
+        Object.defineProperty(obj3,"y",{
+            value:6,
+            writable:true,
+            configrable:true,
+            enumerable:true
+        })
+        console.log(Object.getOwnPropertyDescriptor(obj3,"y"));
+        var o1={x:1};
+        var o2=Object.create(o1);
+        console.log("o1",o1);
+        console.log("o2",o2);
+        console.log(o2.x);//获取属性的时候先看看自己有没有，如果没有的话，就会去它的原型链找
+        o2.x=2;
+        console.log(o2.x);
+        console.log(o2);//说明这是向o2自身上添加x，所以输出的
+        delete o2.x;//删除的是自身上的x，不是原型链上的x,继承来的属性是没有办法直接删掉的。
+    </script>
+</body>
+</html>
